@@ -1,13 +1,13 @@
 import XCTest
 @testable import PersistentDataStructures
 
-final class PersistentDataStructuresTests: XCTestCase {
-    func testConsOnEmptyThrows() {
+final class ListTests: XCTestCase {
+    func testTailOnEmptyThrows() {
         let emptyList: List<Any> = List()
         XCTAssertThrowsError(try emptyList.tail())
     }
     
-    func testConsReturnsEmptyWithOneElement() {
+    func testTailReturnsEmptyWithOneElement() {
         let singleItemList = List(42)
         let cons = try! singleItemList.tail()
         XCTAssertEqual(cons, .empty)
@@ -18,7 +18,7 @@ final class PersistentDataStructuresTests: XCTestCase {
         XCTAssertThrowsError(try emptyList.head())
     }
     
-    func testConsReturnsTheRestOfTheList() {
+    func testTailReturnsTheRestOfTheList() {
         let list: List = [1, 2, 3]
         let cons = try! list.tail()
         let expected: List = [2, 3]
@@ -85,9 +85,4 @@ final class PersistentDataStructuresTests: XCTestCase {
         let expected: List = ["zero", "two", "three"]
         XCTAssertEqual(list, expected)
     }
-    
-    static var allTests = [
-        ("testConsOnEmptyThrows", testConsOnEmptyThrows),
-        ("testConsReturnsEmptyWithOneElement", testConsReturnsEmptyWithOneElement),
-    ]
 }
