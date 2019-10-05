@@ -6,6 +6,10 @@ extension ListTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__ListTests = [
+        ("testConsConstructor", testConsConstructor),
+        ("testCountOfEmptyList", testCountOfEmptyList),
+        ("testCountOfLongList", testCountOfLongList),
+        ("testCountOfSingleItemList", testCountOfSingleItemList),
         ("testEmptyListConcatenation", testEmptyListConcatenation),
         ("testHeadReturnsOnlyElement", testHeadReturnsOnlyElement),
         ("testHeadThrowsOnEmptyList", testHeadThrowsOnEmptyList),
@@ -13,6 +17,9 @@ extension ListTests {
         ("testListConcatenationLefthandSideEmpty", testListConcatenationLefthandSideEmpty),
         ("testListConcatenationNeitherEmpty", testListConcatenationNeitherEmpty),
         ("testListConcatenationRighthandSideEmpty", testListConcatenationRighthandSideEmpty),
+        ("testSuffixesOfEmptyList", testSuffixesOfEmptyList),
+        ("testSuffixesOfManyElementList", testSuffixesOfManyElementList),
+        ("testSuffixesOfSingleElementList", testSuffixesOfSingleElementList),
         ("testTailOnEmptyThrows", testTailOnEmptyThrows),
         ("testTailReturnsEmptyWithOneElement", testTailReturnsEmptyWithOneElement),
         ("testTailReturnsTheRestOfTheList", testTailReturnsTheRestOfTheList),

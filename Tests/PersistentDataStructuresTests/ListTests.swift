@@ -85,4 +85,51 @@ final class ListTests: XCTestCase {
         let expected: List = ["zero", "two", "three"]
         XCTAssertEqual(list, expected)
     }
+    
+    func testConsConstructor() {
+        let tail: List = ["two", "three"]
+        let actual = List("one", tail: tail)
+        let expected: List = ["one", "two", "three"]
+        XCTAssertEqual(actual, expected)
+    }
+    
+    func testSuffixesOfEmptyList() {
+        let list = List<Int>()
+        let suffixes = list.suffixes()
+        XCTAssertEqual(suffixes, [.empty])
+    }
+    
+    func testSuffixesOfSingleElementList() {
+        let list = List<Int>(1)
+        let suffixes = list.suffixes()
+        let expected: List<List<Int>> = [[1], []]
+        XCTAssertEqual(suffixes, expected)
+    }
+    
+    func testSuffixesOfManyElementList() {
+        let list: List = [1, 2, 3, 4, 5]
+        let suffixes = list.suffixes()
+        let expected: List<List<Int>> = [
+            [1, 2, 3, 4, 5],
+            [2, 3, 4, 5],
+            [3, 4, 5],
+            [4, 5],
+            [5],
+            []
+        ]
+        XCTAssertEqual(suffixes, expected)
+    }
+    
+    func testCountOfEmptyList() {
+        XCTAssertEqual(List<Any>.empty.count, 0)
+    }
+    
+    func testCountOfSingleItemList() {
+        XCTAssertEqual(List(1).count, 1)
+    }
+    
+    func testCountOfLongList() {
+        let list: List = [1, 2, 3, 4, 5, 6, 7, 8]
+        XCTAssertEqual(list.count, 8)
+    }
 }

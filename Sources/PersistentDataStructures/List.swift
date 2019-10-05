@@ -21,6 +21,10 @@ public indirect enum List<T> {
         }
     }
     
+    init(_ element: T, tail: List<T>) {
+        self = .node(element, tail: tail)
+    }
+    
     func tail() throws -> List<T> {
         switch self {
         case .empty:
@@ -45,6 +49,16 @@ public indirect enum List<T> {
             return .node(newValue, tail: try! self.tail())
         default:
             return .node(try! self.head(), tail: try! self.tail().update(newValue, at: index - 1))
+        }
+    }
+    
+    // FIXME: This should be O(1)
+    public var count: Int {
+        switch self {
+        case .empty:
+            return 0
+        case let .node(_, tail):
+            return 1 + tail.count
         }
     }
 }
@@ -73,7 +87,7 @@ extension List: ExpressibleByArrayLiteral {
 }
 
 extension List {
-    subscript(index: Int) -> T {
+    public subscript(index: Int) -> T {
         get {
             switch index {
             case 0:
@@ -85,5 +99,38 @@ extension List {
         set(newValue) {
             self = update(newValue, at: index)
         }
+    }
+}
+
+extension List {
+    func suffixes() -> List<List<T>> {
+        switch self {
+        case .empty:
+            return .node(.empty, tail: .empty)
+        case let .node(_, tail):
+            return .node(self, tail: tail.suffixes())
+        }
+    }
+}
+
+extension List: Collection {
+    public func index(after i: Int) -> Int {
+        return i + 1
+    }
+    
+    public var startIndex: Int {
+        return 0
+    }
+
+    public var endIndex: Int {
+        return self.count
+    }
+}
+
+extension List: CustomStringConvertible {
+    // FIXME: This was a quick hack to take advantage of Array’s formatting
+    public var description: String {
+        let array = Array(self)
+        return array.description
     }
 }
