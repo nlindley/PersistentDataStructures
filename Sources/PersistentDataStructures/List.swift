@@ -8,11 +8,11 @@ public indirect enum List<T> {
     case empty
     case node(T, tail: List<T>)
     
-    init() { self = .empty }
-    init(_ element: T) {
+    public init() { self = .empty }
+    public init(_ element: T) {
         self = .node(element, tail: .empty)
     }
-    init(_ elements: [T]) {
+    public init(_ elements: [T]) {
         switch elements.first {
         case nil:
             self = .empty
@@ -21,11 +21,11 @@ public indirect enum List<T> {
         }
     }
     
-    init(_ element: T, tail: List<T>) {
+    public init(_ element: T, tail: List<T>) {
         self = .node(element, tail: tail)
     }
     
-    func tail() throws -> List<T> {
+    public func tail() throws -> List<T> {
         switch self {
         case .empty:
             throw ListError.emptyList
@@ -34,7 +34,7 @@ public indirect enum List<T> {
         }
     }
     
-    func head() throws -> T {
+    public func head() throws -> T {
         switch self {
         case .empty:
             throw ListError.emptyList
@@ -43,7 +43,7 @@ public indirect enum List<T> {
         }
     }
     
-    func update(_ newValue: T, at index: Int) -> List {
+    public func update(_ newValue: T, at index: Int) -> List {
         switch index {
         case 0:
             return .node(newValue, tail: try! self.tail())
